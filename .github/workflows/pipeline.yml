@@ -39,6 +39,7 @@ jobs:
           heroku_email: 'gavingoh99@gmail.com'
           healthcheck: 'https://desolate-coast-31906.herokuapp.com/health'
           rollbackonhealthcheckfailed: true
+
   # display_context:
   #   runs-on: ubuntu-20.04
   #   steps:
@@ -55,6 +56,7 @@ jobs:
   #       env:
   #         COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
   #       run: echo "$COMMIT_MESSAGES"
+
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
