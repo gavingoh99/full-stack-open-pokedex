@@ -59,7 +59,7 @@ jobs:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
-      - if: ${{ git.event_name == 'push' }}
+      - if: ${{ github.event_name == 'push' }}
         name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.36.0
         env:
