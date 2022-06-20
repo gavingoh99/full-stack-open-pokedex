@@ -25,7 +25,7 @@ jobs:
       - name: notify unsuccessful build via discord
         uses: rjstone/discord-webhook-notify@v1
         if: ${{ failure() }}
-        with: 
+        with:
           severity: error
           details: build failed
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
@@ -46,11 +46,10 @@ jobs:
           heroku_email: 'gavingoh99@gmail.com'
           healthcheck: 'https://desolate-coast-31906.herokuapp.com/health'
           rollbackonhealthcheckfailed: true
-      - if: ${{ github.event_name == 'push' }}
+      - if: ${{ github.event_name == 'push' && success() }}
         name: notify successful deployment via discord
         uses: rjstone/discord-webhook-notify@v1
-        if: ${{ success() }}
-        with: 
+        with:
           severity: info
           details: New version successfully deployed
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
