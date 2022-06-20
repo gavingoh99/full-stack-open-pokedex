@@ -59,10 +59,10 @@ jobs:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
-      - if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
-        uses: actions/checkout@v2
-        with: 
+      - uses: actions/checkout@v2
+        with:
           fetch-depth: '0'
+      - if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
         name: Bump version and push tag
         uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
         env:
