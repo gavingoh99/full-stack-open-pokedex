@@ -34,3 +34,4 @@ jobs:
           heroku_app_name: 'desolate-coast-31906'
           heroku_email: 'gavingoh99@gmail.com'
           healthcheck: 'https://desolate-coast-31906.herokuapp.com/health'
+          rollbackonhealthcheckfailed: true
