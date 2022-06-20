@@ -30,7 +30,7 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:3000
-      - if: ${{ github.event_name == 'push' }}
+      - if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
         name: deploy to heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
@@ -59,9 +59,12 @@ jobs:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
-      - if: ${{ github.event_name == 'push' }}
+      - if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip') }}
+        uses: actions/checkout@v2
+        with: 
+          fetch-depth: '0'
         name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.36.0
+        uses: anothrNick/github-tag-action@eca2b69f9e2c24be7decccd0f15fdb1ea5906598
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: 'patch'
